@@ -1,5 +1,5 @@
 # AirWolf
-AirWolf is an Air Quality Detector Project.
+AirWolf is an Open Source Air Quality Detector Project.
 
 It can detect carbon dioxide(CO2) , formaldehyde, VOCs/Volatile Organic Compounds or
 

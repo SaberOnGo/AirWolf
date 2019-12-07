@@ -7,6 +7,8 @@ It can detect carbon dioxide(CO2) , formaldehyde, VOCs/Volatile Organic Compound
 TVOC/Total Volatile Organic Compound, PM2.5/PM10/PM0.3, Temperature, humidity in the air.
 
 
+Previous Open Source Air Quality Project, less better than AirWolf, AirDog is here: https://github.com/SaberOnGo/AirDog
+
 
 Compile Environment: Keil MDK-ARM 5.21a
 
@@ -112,7 +114,11 @@ Resources:
 AirWolf 是一个空气质量检测仪项目，可以检测CO2,甲醛，PM2.5/PM10,VOCs，温湿度等，
 
 具有WIFI/GPRS模块，可使用iOS or Android APP 显示/控制。
+	
 
+之前的开源项目： 空气狗，在这里：https://github.com/SaberOnGo/AirDog
+
+	
 
 编译环境: Keil MDK-ARM 5.21a
 

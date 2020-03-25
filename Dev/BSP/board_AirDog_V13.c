@@ -4,7 +4,7 @@
 
 /**************************************************************************************
 主板管脚定义源文件
-主板硬件版本:  AirDog V1.33 版本, 2019-06-14
+主板硬件版本:  AirDog V1.6  版本, 2019-06-14
 日期: 2019-06-14
 
 **************************************************************************************/
@@ -130,7 +130,8 @@ void Board_GpioInit(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
        GPIO_InitStructure.GPIO_Mode   = GPIO_Mode_Out_PP;
 	STM32_GPIO_Init(SNS_Power_Ctrl_PORT, &GPIO_InitStructure);
-
+        SNS_Ctrl_Set(SW_CLOSE);  
+		
         // 作为普通IO
 	GPIO_InitStructure.GPIO_Pin   =  GPIO_Pin_2;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -139,7 +140,7 @@ void Board_GpioInit(void)
 	
 
        // WIFI / GPRS 选择
-	NetModuelSelect(NET_SEL_WIFI);
+	NetModuelSelect(NET_SEL_GPRS);
        //delay_us(10);
        
   
@@ -152,7 +153,7 @@ void Board_GpioInit(void)
        VBUS_Ctrl_Open();
 
         // OPEN TFT back light
-       LCD_BackLight_Ctrl_Set(SW_OPEN);
+       LCD_BackLight_Ctrl_Set(SW_CLOSE);
        
 	// BEEP IO 管脚初始化
        GPIO_InitStructure.GPIO_Pin   = BEEP_IO_Pin;

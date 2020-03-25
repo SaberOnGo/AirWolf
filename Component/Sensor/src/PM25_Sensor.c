@@ -201,10 +201,10 @@ static void TimerPM25_CallBack(void * arg)
                                PM25.pm10_air,    PM25.PtCnt_10p0um);
        #endif
 
-        SDRR_SaveSensorPoint(SENSOR_PM25,           &PM25.pm2p5_air);
-        SDRR_SaveSensorPoint(SENSOR_PM10,           &PM25.pm10_air);
-        SDRR_SaveSensorPoint(SENSOR_0P3_UM,      &PM25.PtCnt_0p3um);
-        SDRR_SaveSensorPoint(SENSOR_PM10_UM,   &PM25.PtCnt_10p0um);
+        SDRR_SaveSensorPoint(SENSOR_PM25,           (void *)&PM25.pm2p5_air);
+        SDRR_SaveSensorPoint(SENSOR_PM10,           (void *)&PM25.pm10_air);
+        SDRR_SaveSensorPoint(SENSOR_0P3_UM,      (void *)&PM25.PtCnt_0p3um);
+        SDRR_SaveSensorPoint(SENSOR_PM10_UM,   (void *)&PM25.PtCnt_10p0um);
         Sns_PM25_Display();
 }
 

@@ -1,8 +1,3 @@
----- PRODUCT_SECRET_STRING Matches (7 in 4 files) ----
-Fatfs_demo.c (component\fatfs\src):extern char *PRODUCT_SECRET_STRING(void);
-Fatfs_demo.c (component\fatfs\src):	                 os_memcpy(PRODUCT_SECRET_STRING(),  p,  n);
-Gizwits_port.c (component\gizwits\port):char *PRODUCT_SECRET_STRING(void)
-Gizwits_port.h (component\gizwits\port):char *PRODUCT_SECRET_STRING(void);
-Gizwits_protocol.c (component\gizwits\src):extern char *PRODUCT_SECRET_STRING(void);
-Gizwits_protocol.c (component\gizwits\src):                   (const char *)PRODUCT_SECRET_STRING(), 
-Gizwits_protocol.c (component\gizwits\src):                    strlen((char *)PRODUCT_SECRET_STRING())
+---- RTCDrv_Init Matches (2 in 2 files) ----
+RTCDrv.c (dev\driver\src):void RTCDrv_Init(void)
+RTCDrv.h (dev\driver\inc):void    RTCDrv_Init(void);

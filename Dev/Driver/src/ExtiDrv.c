@@ -103,7 +103,7 @@ static void TimerTFTDispCntDown_CallBack(void * arg)
 #include "UGUI_Demo.h"
 #include "SnsGUI.h"
 
-
+extern uint8_t enter_normal_mode;
 
 static void TimerCapKeyTrigger_CallBack(void * arg)
 {
@@ -124,7 +124,10 @@ static void TimerCapKeyTrigger_CallBack(void * arg)
                           JumpToBootloader();
                           #endif
                     }
-                    LCD_BackLight_Ctrl_Set(SW_OPEN);
+		      if(enter_normal_mode)
+                    {
+                            LCD_BackLight_Ctrl_Set(SW_OPEN);
+		      }
                     
             }
             tft_left_disp_sec = cfgVar_LcdBackLightSec;  // TFT 屏幕背光持续时间

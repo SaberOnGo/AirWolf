@@ -327,6 +327,8 @@ static void ReadUserConfig(void)
                if(n > NET_SEL_None)n = NET_SEL_None;
                NetModuelSelect(net);
          }
+          else{ NetModuelSelect(NET_SEL_WIFI); }
+		 
 
          
           // 读取第一次LCD 背光持续时间

@@ -333,7 +333,7 @@ void print_info(char * info, u8 * file, u32 line)
     char string[] = " ";
 	
     if(! info)info = string;
-    printf("debug: %s %s:%d \r\n", info, file, line);
+    dbg_print_detail("debug: %s %s:%d \r\n", info, file, line);
 }
 
 void LCD_ShowString(u16 x,u16 y,u16 width,u16 height,u8 size,u8 *p)
@@ -378,6 +378,7 @@ extern void Pro_D2W_Ask_Module_Reboot(void);
 #endif
 
 uint8_t sys_run_mode = 0;   // 系统运行模式: 0: 正常; 1: 读取SD卡模式
+uint8_t enter_normal_mode = 0;   // fixed: 修复: 未开机时, 晃动设备会白屏的现象
 
 uint8_t App_GetRunMode(void)
 {
@@ -386,6 +387,7 @@ uint8_t App_GetRunMode(void)
 
 
 static uint32_t wait_tick;
+
 
 void AppInit(void)
 {
@@ -420,7 +422,7 @@ void AppInit(void)
        UGUI_Demo();
        ICON_DrawBattery();  //  显示电池外形
        
-        RCC_GetClocksFreq(&rcc_clocks);  // read system clock config
+       RCC_GetClocksFreq(&rcc_clocks);  // read system clock config
        os_printf("SystemClock = %ld \r\n", SystemCoreClock);
        os_printf("SysClk = %d, HCLK = %d, PCLK1 = %d, PCLK2 = %d, ADCLK = %d MHz\r\n", 
 	   	                 rcc_clocks.SYSCLK_Frequency / FREQ_1MHz,  rcc_clocks.HCLK_Frequency / FREQ_1MHz,
@@ -456,7 +458,6 @@ void AppInit(void)
               	 }
         	 }
                 os_printf("2 keys released, t = %ld \r\n",  os_get_tick());
-               SNS_Ctrl_Set(SW_OPEN);  
                 while(1)
                 {
                        key_pwr_process();
@@ -471,24 +472,47 @@ void AppInit(void)
                os_printf("no detect 2 keys press, no usb init\r\n");
        }
        #if 1
+	
 	while(KeyDect_State() != 0)   
 	{		
+	         static uint8_t disp_bat = 0;
+			 
 	         if(os_get_tick() > wait_tick)
 	         {
                        wait_tick = os_get_tick() + 50; // 500 ms
+                        if((os_get_sec() % 25) < 6)
+     		         {
+				  if(0 == disp_bat)
+				  {
+				         disp_bat = 1;
+					  UserGUI_Init();
+					  LCD_BackLight_Ctrl_Set(SW_OPEN);
+                                     UserGUI_LCDClear(C_BLACK);
+     		                       ICON_DrawBattery();  //  显示电池外形
+     		                       DisplayBatteryPower();
+				  }
+     	                }
+    		         else
+    		         {    
+    		                 LCD_BackLight_Ctrl_Set(SW_CLOSE);
+    		                 disp_bat = 0;
+			   }
+				 
             	         if(USB_Detect_Read())
             	         {
-            		        DisplayBatteryPower();
+				 DisplayBatteryPower();
             		  }
             		  else
             		  {
-                                  Power_Keep_Close();
+                             Power_Keep_Close();
             		  }
             		   os_printf("wait pwr %ld \r\n",   os_get_tick());
 		   }
 		   OS_TimerCheck();	
 	}    //等待电源键按下		
        #endif
+	enter_normal_mode = 1;
+	   
        Power_Keep_Open();
        
        Board_OpenSensor();

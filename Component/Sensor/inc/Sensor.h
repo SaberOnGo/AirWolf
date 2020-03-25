@@ -23,7 +23,7 @@
 #define     CO_DBG_EN                0
 #define    TVOC_DBG_EN        0
 #define    HCHO_DBG_EN          0
-#define    CO2_DBG_EN               1
+#define    CO2_DBG_EN               0
 #define  PCF8563_DEBUG_EN   0
 
 #define   PM25_SNS_EN    1

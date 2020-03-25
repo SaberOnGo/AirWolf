@@ -176,8 +176,8 @@ void USB_Interrupts_Config(void)
 	NVIC_Init(&NVIC_InitStructure);  
 
   #else
-  STM32_NVICInit(USB_LP_CAN1_RX0_IRQn, 4, 2, 0);	 // 第2组优先级, 2位抢占优先级, 2位响应优先级
-  STM32_NVICInit(USB_HP_CAN1_TX_IRQn,   4, 1, 0);	 // 第1组优先级, 1位抢占优先级, 3位响应优先级
+  STM32_NVICInit(USB_LP_CAN1_RX0_IRQn, 4, 2, 0);	 // 第4组优先级, 0位抢占优先级, 4位响应优先级
+  STM32_NVICInit(USB_HP_CAN1_TX_IRQn,   4, 1, 0);	 // 第4组优先级, 0位抢占优先级, 4位响应优先级
   #endif
 
 }

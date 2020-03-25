@@ -1,0 +1,5 @@
+font=1
+wifi_en=1
+dbg_file=0
+DiskFreeSize=1024
+get_mac=1

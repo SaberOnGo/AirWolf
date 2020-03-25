@@ -215,4 +215,7 @@ AirWolf 配置文件在目录：./doc/disk config file/
 Android & iOS APP:
       https://github.com/SaberOnGo/AIRDOG-APP
       
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 7da0a2d... update

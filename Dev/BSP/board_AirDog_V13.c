@@ -34,7 +34,7 @@ static E_SW_STATE sns_sta = SW_CLOSE;
 void SNS_Ctrl_Set(E_SW_STATE sta)
 {
         sns_sta = sta;
-        if(sta == SW_CLOSE)
+        if(sta == SW_OPEN)
         {
                 SNS_Power_Ctrl_H(); 
                 delay_us(100);
@@ -169,7 +169,7 @@ void Board_GpioInit(void)
 
         // usb detect 管脚
         GPIO_InitStructure.GPIO_Pin      =  USB_Detect_Pin;
-	 GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
+	 GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	 STM32_GPIO_Init(USB_Detect_PORT, &GPIO_InitStructure);
         
         // 电源按键

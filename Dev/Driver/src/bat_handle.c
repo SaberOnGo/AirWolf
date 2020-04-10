@@ -6,6 +6,8 @@
 #include "FONT_API.h"
 #include "SnsGUI.h"
 #include "icon_battery.h"
+#include "os_global.h"
+
 
 extern E_CHG_STAT BatChargStat(void);
 
@@ -34,6 +36,22 @@ void DispThreeGridPower(u16 color)
 void DispFourGridPower(u16 color)
 {
         LCD_fillRect(BAT_X_OFFSET, BAT_Y_OFFSET,  32, 16,  color);
+}
+
+#include "TFT_API.h"
+// power shut off when low battery capacity
+void PowerShutOff(void)
+{
+          UserGUI_LCDClear(C_BLACK);
+          UG_FontSelect(&FONT_10X16);  
+          UG_SetBackcolor(C_BLACK);
+          UG_SetForecolor(C_WHITE);
+          UG_PutString(125, 100,       "Closing");
+          UG_PutString(60,      130,       "Low Battery Capacity");
+          delay_ms(2000);
+         // LCD_BackLight_Ctrl_Set(SW_CLOSE);
+          Power_Keep_Close();
+          NVIC_SystemReset();//电源键按下，系统复位关机
 }
 
 //显示电量
@@ -77,8 +95,11 @@ void DispBatPower(void)
 			{
 					if(BatChargStat() < CHG_ON)  //非充电，电量不足关机
 					{
-					        //if(os_get_sec() > 60)
-					        //       Power_Keep_Close();
+					         if(os_get_sec() > 30)
+					         {      
+								os_printf("low battery,ready to shut down\r\n");
+								PowerShutOff();   // shut off system
+					         }
 					}
 					break;
 			}
@@ -89,21 +110,7 @@ void DispBatPower(void)
 		}
 }
 
-#include "TFT_API.h"
-// power shut off when low battery capacity
-void PowerShutOff(void)
-{
-          UserGUI_LCDClear(C_BLACK);
-          UG_FontSelect(&FONT_10X16);  
-          UG_SetBackcolor(C_BLACK);
-          UG_SetForecolor(C_WHITE);
-          UG_PutString(125, 100,       "Closing");
-          UG_PutString(60,      130,       "Low Battery Capacity");
-          delay_ms(2000);
-         // LCD_BackLight_Ctrl_Set(SW_CLOSE);
-          Power_Keep_Close();
-          NVIC_SystemReset();//电源键按下，系统复位关机
-}
+
 
 void DisplayBatteryPower(void)
 {
@@ -116,8 +123,11 @@ void DisplayBatteryPower(void)
         percent = BatLev_GetPercent();
         os_printf("percent = %d, chg = %d, %d.%03d V\r\n",  
                                  percent,  is_charging,  ad / 1000,  ad % 1000);
-        if(percent < 5 && (! USB_Detect_Read())) // battery capaticy less than 5 %
+        os_printf("usb lev = %d\r\n",  (!USB_Detect_Read()));
+        if(percent < 10 && (! USB_Detect_Read() || !is_charging ))   
+         //if(percent < 50 && (! USB_Detect_Read()))
         {
+               os_printf("bat percent = %d, system power off \r\n",  percent);
                PowerShutOff();   // shut off system
         }
         ICON_SetBatPercent(percent,  is_charging,  0);

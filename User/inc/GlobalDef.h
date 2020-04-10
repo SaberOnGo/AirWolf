@@ -24,7 +24,7 @@ void DbgInfo_Print(char * fmt,  ...);
 #define dbg_print_detail(fmt, ...)  { DbgInfo_Print(fmt, ##__VA_ARGS__); \
 /*DbgInfo_Print("%s %d\r\n",  __FILE__,  __LINE__); */}
 
-#if 0
+#if 1
 #define os_printf(fmt, ...)  printf(fmt, ##__VA_ARGS__)
 //#define os_printf    dbg_print_detail
 #else

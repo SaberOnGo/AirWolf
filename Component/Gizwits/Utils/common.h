@@ -39,7 +39,7 @@ typedef void (*gizTimerFunc_t)(void *arg );
 */
 //#define GIZWITS_LOG printf                          ///<Run log print
 
-#if 1
+#if 0
 #define GIZWITS_LOG(fmt, ...)  printf(fmt, ##__VA_ARGS__)
 
 //extern void DbgInfo_Print(char * fmt,  ...);

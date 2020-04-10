@@ -11,7 +11,7 @@ uint8_t App_GetRunMode(void);
 void App_StartCO2BackgndCali(void);
 void SysClockHSEConfig(void);
 
-#define  SOFT_VERSION    "HV1.6 SV2.82"
+#define  SOFT_VERSION    "HV1.6 SV2.91.0"
 
 #endif
 

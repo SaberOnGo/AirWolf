@@ -1,0 +1,10 @@
+#gap: 0-600, 0: default: 60 seconds to save sensor data
+#action: 0-2; 0: do nothing; 1: set rtc time for only once; 2: set rtc time every time when system is powered
+
+gap=30
+date=2020-04-03
+time=11:55:30
+action=1
+FirstLcdBackLightSec=180
+LcdBackLightSec=120
+SnsRemainRunTime=65535
